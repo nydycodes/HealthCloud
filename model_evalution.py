@@ -179,3 +179,87 @@ plt.xticks(rotation=45)
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+
+# ACCURACY, PRECISION AND RECALL BAR GRAPH
+# Define the classifiers and their names
+classifiers = [logistic_model, svm_model, nn_model, gbt_model]
+classifier_names = ["Logistic Regression", "Support Vector Machine (SVM)", "Neural Network", "Gradient Boosting Trees"]
+
+# Initialize lists to store metric values
+accuracy_scores = []
+precision_scores = []
+recall_scores = []
+
+# Calculate metrics for each classifier
+for classifier in classifiers:
+    # Predictions on the test set
+    y_pred = classifier.predict(X_test)
+    # Accuracy
+    accuracy_scores.append(accuracy_score(y_test, y_pred))
+    # Precision
+    precision_scores.append(precision_score(y_test, y_pred))
+    # Recall
+    recall_scores.append(recall_score(y_test, y_pred))
+
+# Set the width of the bars
+bar_width = 0.3
+
+# Set the positions for the bars
+r1 = np.arange(len(classifier_names))
+r2 = [x + bar_width for x in r1]
+r3 = [x + bar_width for x in r2]
+
+# Define mild colors
+accuracy_color = '#87CEEB'  # Light sky blue
+precision_color = '#FFA07A'  # Light salmon
+recall_color = '#98FB98'  # Pale green
+
+# Plot the bar graphs for accuracy, precision, and recall
+plt.figure(figsize=(10, 6))
+
+# Accuracy
+plt.bar(r1, accuracy_scores, color=accuracy_color, width=bar_width, edgecolor='grey', label='Accuracy')
+
+# Precision
+plt.bar(r2, precision_scores, color=precision_color, width=bar_width, edgecolor='grey', label='Precision')
+
+# Recall
+plt.bar(r3, recall_scores, color=recall_color, width=bar_width, edgecolor='grey', label='Recall')
+
+# Add xticks on the middle of the group bars
+plt.xlabel('Classifier', fontweight='bold')
+plt.xticks([r + bar_width for r in range(len(classifier_names))], classifier_names, rotation=45)
+
+# Create legend & Show graphic
+plt.legend()
+plt.title('Accuracy, Precision, and Recall for Classifiers')
+plt.tight_layout()
+plt.show()
+
+# EXECUTION TIME 
+import time
+
+# Define the classifiers and their names
+classifiers = [logistic_model, svm_model, nn_model, gbt_model]
+classifier_names = ["Logistic Regression", "Support Vector Machine (SVM)", "Neural Network", "Gradient Boosting Trees"]
+
+# Initialize a list to store execution times
+execution_times = []
+
+# Measure execution time for each classifier
+for classifier in classifiers:
+    start_time = time.time()
+    classifier.fit(X_train, y_train)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    execution_times.append(execution_time)
+
+# Plot the execution times
+plt.figure(figsize=(10, 6))
+plt.bar(classifier_names, execution_times, color='skyblue')
+plt.xlabel('Classifier')
+plt.ylabel('Execution Time (seconds)')
+plt.title('Execution Time for Different Classifiers')
+plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels for better readability
+plt.tight_layout()  # Adjust layout to prevent clipping of labels
+plt.show()
