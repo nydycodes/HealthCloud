@@ -1,8 +1,9 @@
+import os
 from flask import Flask, request, jsonify, render_template
 import pickle
 import numpy as np
 
-app = Flask(__name__, template_folder='site')
+app = Flask(__name__)
 
 model=pickle.load(open('model.pkl','rb'))
 
@@ -20,10 +21,10 @@ def predict():
     output=prediction[0]
 
     if output==0:
-        return render_template('predict.html',pred='No heart disease')
+        return render_template('predict.html',pred='You don\'t have any heart disease. Woohoo!!')
     else:
-        return render_template('predict.html',pred='Yes heart disease')
+        return render_template('predict.html',pred='You may have heart disease. Please consult with the doctors.')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
