@@ -1,5 +1,6 @@
 # HealthCloud
 During the 2020 global health crisis, there's been a rise in self-diagnosis via online platforms due to readily available information. However, users often misinterpret symptoms and arrive at inaccurate conclusions from medical blogs or notes.
+
 To address these challenges, this project aims to develop HealthCloud, a machine learning-based diagnostic system to monitor the health status of heart patients. We'll assess the accuracy of models like Support Vector Machine, Neural Networks, Logistic Regression, and Gradient Boosting Trees. To enable real-time data analysis, the web interface is deployed on cloud using Render.
 
 Implementations:
